@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $array = ['error' => '','msg' => ''];
+        $array = ['msg' => ''];
 
         $name = $request->input('name');
         $email = $request->input('email');
@@ -41,14 +41,14 @@ class UserController extends Controller
                 if($emailExists === 0){
                     $user->email = $email;
                 } else {
-                    $array['error'] = 'E-mail já existe!';
+                    $array['msg'] = 'E-mail já existe!';
                     return $array;
                 }
             }
         }
 
         //PASSWORD
-        if($password && $password_confirm)
+        if($password || $password_confirm)
         {
             if($password === $password_confirm)
             {
@@ -58,19 +58,18 @@ class UserController extends Controller
             }
             else
             {
-                $array['error'] = 'Senhas não batem!';
+                $array['msg'] = 'Senha confirmada não coincide com a digitada.';
                 return $array;
             }
         }
 
-        $array['msg'] = empty($array['error']) ? 'Usuário editado com sucesso.' : '';
         $user->save();
         return $array;
     }
 
     public function delete(Request $request)
     {
-        $array = ['error' => '','msg' => ''];
+        $array = ['msg' => ''];
 
         if($request->id)
         {
@@ -83,13 +82,13 @@ class UserController extends Controller
             }
             else
             {
-                $array['error'] = 'ID de usuário inválido ou inexistente.';
+                $array['msg'] = 'ID de usuário inválido ou inexistente.';
             }
 
         }
         else
         {
-            $array['error'] = 'Nenhuma ID passada para deletar usuário.';
+            $array['msg'] = 'Nenhuma ID passada para deletar usuário.';
             return $array;
         }
 
