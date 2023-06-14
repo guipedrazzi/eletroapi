@@ -63,6 +63,7 @@ class UserController extends Controller
             }
         }
 
+        $array['msg'] = empty($array['error']) ? 'Usuário editado com sucesso.' : '';
         $user->save();
         return $array;
     }

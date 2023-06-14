@@ -32,13 +32,16 @@ Siga as etapas abaixo para instalar e configurar o projeto EletroAPI:
    cp .env.example .env
    ```
 
-6. Gere a chave de aplicação:
+6. Gere a chave de JWT, isto irá atualizar o seu arquivo .env com a constante JWT_SECRET:
 
    ```bash
-   php artisan key:generate
+   php artisan jwt:secret
    ```
 
-7. Configure as informações de conexão com o banco de dados no arquivo `.env`.
+7. Configure as informações de conexão com o banco de dados no arquivo `.env`:
+    ```bash
+   Crie o banco de dados eletroapi no MySQL ou MariaDB e o coloque na constante DB_DATABASE no .env
+   ```
 
 8. Execute as migrações do banco de dados:
 
@@ -84,12 +87,6 @@ Exemplo de cabeçalho de requisição com o token de autenticação:
 Authorization: Bearer <token>
 ```
 
-## Contribuição
+## Conclusão
 
-Se você quiser contribuir para este projeto, fique à vontade para abrir um pull request. Todos os tipos de contribuições são bem-vindos, desde a correção de bugs até a implementação de novos recursos.
-
-Antes de enviar um pull request, certifique-se de que seu código segue as boas práticas de desenvolvimento, incluindo testes apropriados.
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+---
