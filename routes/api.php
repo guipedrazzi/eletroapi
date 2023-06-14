@@ -28,7 +28,7 @@ Route::post('/user/delete/{id?}',[UserController::class,'delete']);
 
 Route::post('/device',[DeviceController::class,'create']);
 Route::put('/device/{id?}',[DeviceController::class,'update']);
-Route::post('/device/delete/{id?}',[DeviceController::class,'delete'])->where('id', '[0-9]+');
+Route::post('/device/delete/{id?}',[DeviceController::class,'delete']);
 Route::get('/device',[DeviceController::class,'list']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

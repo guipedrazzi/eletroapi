@@ -73,6 +73,34 @@ class DeviceController extends Controller
         return $array;
     }
 
+    public function delete(Request $request)
+    {
+        $array = ['error' => '','msg' => ''];
+
+        if($request->id)
+        {
+            $device = Device::find($request->id);
+            if($device && is_numeric($request->id))
+            {
+                Device::destroy($request->id);
+                $array['msg'] = 'Eletrodoméstico excluído com sucesso.';
+
+            }
+            else
+            {
+                $array['error'] = 'ID de Eletrodoméstico inválido ou inexistente.';
+            }
+
+        }
+        else
+        {
+            $array['error'] = 'Nenhuma ID passada para deletar Eletrodoméstico.';
+            return $array;
+        }
+
+        return $array;
+    }
+
     public function list()
     {
         $array = ['msg' => ''];
