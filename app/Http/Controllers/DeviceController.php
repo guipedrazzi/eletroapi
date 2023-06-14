@@ -11,7 +11,12 @@ class DeviceController extends Controller
     private $loggedUser;
     //
     public function __construct(){
-        $this->middleware('auth:api');
+        $this->middleware('auth:api',[
+            'except' =>[
+                'list'
+            ]
+        ]);
+
         $this->loggedUser = auth()->user();
     }
     public function create(Request $request)
@@ -19,10 +24,10 @@ class DeviceController extends Controller
         $array = ['msg' => ''];
 
         $device = new Device();
-        $device->brand = isset($request['brand']) ? $request['brand'] : $array['error'][] = 'Marca não expecificada.';
-        $device->name = isset($request['name']) ? $request['name'] : $array['error'][] = 'Nome não expecificado.';
-        $device->description = isset($request['description']) ? $request['description'] : $array['error'][] = 'Descrição não expecificada.';
-        $device->voltage = isset($request['voltage']) ? $request['voltage'] : $array['error'][] = 'Voltagem não expecificada.';
+        $device->brand = isset($request['brand']) ? $request['brand'] : $array['error'][] = 'input [brand] not expecified';
+        $device->name = isset($request['name']) ? $request['name'] : $array['error'][] = 'input [name] not expecified.';
+        $device->description = isset($request['description']) ? $request['description'] : $array['error'][] = 'input [description] not expecified.';
+        $device->voltage = isset($request['voltage']) ? $request['voltage'] : $array['error'][] = 'input [voltage] not expecified.';
         $device['id_user'] = $this->loggedUser['id'];
 
         if(!isset($array['error']) || count($array['error']) == 0 )
@@ -64,6 +69,17 @@ class DeviceController extends Controller
             return $array;
         }
 
+
+        return $array;
+    }
+
+    public function list()
+    {
+        $array = ['msg' => ''];
+
+        $array['devices'] = Device::all();
+        if(!$array['devices'])
+            $array['msg'] = 'Nenhum eletrodoméstico registrado';
 
         return $array;
     }
