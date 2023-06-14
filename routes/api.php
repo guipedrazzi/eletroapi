@@ -17,7 +17,7 @@ use App\Http\Controllers\DeviceController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('/unauthorized',[AuthController::class,'unauthorized'])->name('login');
+Route::any('/unauthorized',[AuthController::class,'unauthorized'])->name('login');
 
 Route::post('/auth/login',[AuthController::class, 'login']);
 Route::post('/auth/logout',[AuthController::class,'logout']);
