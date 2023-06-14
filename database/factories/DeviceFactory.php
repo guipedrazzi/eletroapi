@@ -20,8 +20,8 @@ class DeviceFactory extends Factory
     {
         return [
             'id_user' => '1',
-            'brand' => fake()->companySuffix(),
-            'name' => fake()->firstName(),
+            'brand' => fake()->sentence('5'),
+            'name' => fake()->sentence('10'),
             'description' =>fake()->text('60'),
             'voltage' => rand(1,2) === 1 ? '110' : '220',
         ];
