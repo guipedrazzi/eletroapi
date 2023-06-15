@@ -10,6 +10,9 @@ class DeviceController extends Controller
 {
 
     private $loggedUser;
+
+    /* HTTP Response Code*/
+    public $code = 200;
     //
     public function __construct(){
         $this->middleware('auth:api',[
@@ -25,19 +28,24 @@ class DeviceController extends Controller
         $array = ['msg' => ''];
 
         $device = new Device();
-        $device->brand = isset($request['brand']) ? $request['brand'] : $array['error'][] = 'input [brand] not expecified';
-        $device->name = isset($request['name']) ? $request['name'] : $array['error'][] = 'input [name] not expecified.';
-        $device->description = isset($request['description']) ? $request['description'] : $array['error'][] = 'input [description] not expecified.';
-        $device->voltage = isset($request['voltage']) ? $request['voltage'] : $array['error'][] = 'input [voltage] not expecified.';
+        $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $array['error'][] = 'input [brand] not expecified';
+        $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $array['error'][] = 'input [name] not expecified.';
+        $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $array['error'][] = 'input [description] not expecified.';
+        $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $array['error'][] = 'input [voltage] not expecified.';
         $device['id_user'] = $this->loggedUser['id'];
 
         if(!isset($array['error']) || count($array['error']) == 0 )
         {
             $device->save();
+            $this->code = 200;
             $array['msg'] = 'Eletrodoméstico adicionado com sucesso.';
         }
+        else{
 
-        return $array;
+            $this->code = 405;
+        }
+
+        return response()->json($array,$this->code);
     }
 
     public function update(Request $request)
@@ -57,22 +65,25 @@ class DeviceController extends Controller
                 $device->save();
                 $array['error'][] = '';
                 $array['msg'] = 'Eletrodoméstico atualizado com sucesso.';
+                $this->code = 200;
 
             }
             else
             {
                 $array['error'][] = 'ID de eletrodoméstico inválido ou inexistente.';
+                $this->code = 404;
+
             }
 
         }
         else
         {
             $array['error'][] = 'Nenhum ID passada para editar o eletrodoméstico.';
-            return $array;
+            $this->code = 404;
         }
 
 
-        return $array;
+        return response()->json($array,$this->code);
     }
 
     public function delete(Request $request)
@@ -86,31 +97,36 @@ class DeviceController extends Controller
             {
                 Device::destroy($request->id);
                 $array['msg'] = 'Eletrodoméstico excluído com sucesso.';
+                $this->code = 200;
 
             }
             else
             {
                 $array['error'] = 'ID de Eletrodoméstico inválido ou inexistente.';
+                $this->code = 404;
             }
 
         }
         else
         {
             $array['error'] = 'Nenhuma ID passada para deletar Eletrodoméstico.';
-            return $array;
+            $this->code = 404;
         }
 
-        return $array;
+        return response()->json($array,$this->code);
     }
 
     public function list()
     {
         $array = ['msg' => ''];
+        $this->code = 200;
 
         $array['devices'] = Device::all();
-        if(!$array['devices'])
+        if(!$array['devices']){
+            $this->code = 204;
             $array['msg'] = 'Nenhum eletrodoméstico registrado';
+        }
 
-        return $array;
+        return response()->json($array,$this->code);
     }
 }

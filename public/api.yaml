@@ -1,25 +1,345 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Coronatime API
-  description: Here goes description
-  version: 0.1.9
-
+  title: EletroAPI
+  description: ''
+  contact: {}
+  version: '1.0'
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
-  - url: http://localhost:8000/api
-    description: local server
-  - url: http://producation.app/api
-    description: production server
-
+- url: http://127.0.0.1:8000/api
+  variables: {}
 paths:
-  /device:
-    get:
-      summary: Returns a list of device.
+  /auth/logout:
+    post:
+      tags:
+      - Auth
+      summary: Auth Logout
+      description: ''
+      operationId: AuthLogout
+      parameters: []
       responses:
         '200':
-          description: A JSON array of devices
+          description: ''
+          headers: {}
           content:
-            application/json:
+            text/plain:
               schema:
-                type: array
-                items:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    parameters: []
+  /unauthorized:
+    get:
+      tags:
+      - Auth
+      summary: Unauthorized
+      description: ''
+      operationId: Unauthorized
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security: []
+    parameters: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Auth Login
+      description: ''
+      operationId: AuthLogin
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          const: application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - email
+              - password
+              type: object
+              properties:
+                email:
                   type: string
+                  examples:
+                  - teste1@teste.com
+                password:
+                  type: string
+                  examples:
+                  - '1234'
+              contentMediaType: application/x-www-form-urlencoded
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security: []
+    parameters: []
+  /user/:
+    delete:
+      tags:
+      - User
+      summary: User Delete
+      description: ''
+      operationId: UserDelete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    parameters: []
+  /user:
+    post:
+      tags:
+      - User
+      summary: User Create
+      description: ''
+      operationId: UserCreate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          const: application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - name
+              - email
+              - password
+              - password_confirm
+              type: object
+              properties:
+                name:
+                  type: string
+                  examples:
+                  - Gui
+                email:
+                  type: string
+                  examples:
+                  - gui@gui.com
+                password:
+                  type: string
+                  examples:
+                  - '123'
+                password_confirm:
+                  type: string
+                  examples:
+                  - '123'
+              contentMediaType: application/x-www-form-urlencoded
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security: []
+    put:
+      tags:
+      - User
+      summary: User Update
+      description: ''
+      operationId: UserUpdate
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    parameters: []
+  /device:
+    put:
+      tags:
+      - Device
+      summary: Device Update
+      description: ''
+      operationId: DeviceUpdate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          const: application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - brand
+              - name
+              - description
+              - voltage
+              type: object
+              properties:
+                brand:
+                  type: string
+                name:
+                  type: string
+                description:
+                  type: string
+                voltage:
+                  type: string
+              contentMediaType: application/x-www-form-urlencoded
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Device
+      summary: Device List
+      description: ''
+      operationId: DeviceList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security: []
+    delete:
+      tags:
+      - Device
+      summary: Device Delete
+      description: ''
+      operationId: DeviceDelete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Device
+      summary: Device Create
+      description: ''
+      operationId: DeviceCreate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          const: application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - brand
+              - name
+              - description
+              - voltage
+              type: object
+              properties:
+                brand:
+                  type: string
+                name:
+                  type: string
+                  examples:
+                  - testename
+                description:
+                  type: string
+                  examples:
+                  - teste descr
+                voltage:
+                  type: string
+                  examples:
+                  - '230'
+              contentMediaType: application/x-www-form-urlencoded
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                contentMediaType: text/plain
+      deprecated: false
+      security:
+      - bearer: []
+    parameters: []
+components:
+  schemas: {}
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: User
+  description: ''
+- name: Device
+  description: ''
