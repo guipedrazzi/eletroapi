@@ -55,6 +55,7 @@ class DeviceController extends Controller
                 $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $device->voltage;
                 $device->updated_at = date('Y-m-d H:m:s');
                 $device->save();
+                $array['error'][] = '';
                 $array['msg'] = 'Eletrodoméstico atualizado com sucesso.';
 
             }

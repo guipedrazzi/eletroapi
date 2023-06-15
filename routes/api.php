@@ -24,11 +24,11 @@ Route::post('/auth/logout',[AuthController::class,'logout']);
 
 Route::post('/user', [AuthController::class, 'create']);
 Route::put('/user', [UserController::class,'update']);
-Route::post('/user/delete/{id?}',[UserController::class,'delete']);
+Route::delete('/user/delete/{id?}',[UserController::class,'delete']);
 
 Route::post('/device',[DeviceController::class,'create']);
 Route::put('/device/{id?}',[DeviceController::class,'update']);
-Route::post('/device/delete/{id?}',[DeviceController::class,'delete']);
+Route::delete('/device/delete/{id?}',[DeviceController::class,'delete']);
 Route::get('/device',[DeviceController::class,'list']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
