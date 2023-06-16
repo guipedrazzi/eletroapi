@@ -101,7 +101,16 @@ paths:
       summary: User Delete
       description: ''
       operationId: UserDelete
-      parameters: []
+      parameters:
+      - name: id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          contentEncoding: int32
       responses:
         '200':
           description: ''
@@ -113,6 +122,9 @@ paths:
       deprecated: false
       security:
       - bearer: []
+      servers:
+      - url: http://127.0.0.1:8000/api
+        variables: {}
     parameters: []
   /user:
     post:
@@ -176,7 +188,16 @@ paths:
       summary: User Update
       description: ''
       operationId: UserUpdate
-      parameters: []
+      parameters:
+      - name: id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          contentEncoding: int32
       responses:
         '200':
           description: ''
@@ -197,14 +218,22 @@ paths:
       description: ''
       operationId: DeviceUpdate
       parameters:
+      - name: id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          contentEncoding: int32
       - name: Content-Type
         in: header
         description: ''
-        required: true
         style: simple
         schema:
-          const: application/x-www-form-urlencoded
           type: string
+          default: application/x-www-form-urlencoded
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -261,7 +290,16 @@ paths:
       summary: Device Delete
       description: ''
       operationId: DeviceDelete
-      parameters: []
+      parameters:
+      - name: id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          contentEncoding: int32
       responses:
         '200':
           description: ''
