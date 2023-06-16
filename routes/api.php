@@ -17,20 +17,11 @@ use App\Http\Controllers\DeviceController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::any('/unauthorized',[AuthController::class,'unauthorized'])->name('login');
-
-Route::post('/auth/login',[AuthController::class, 'login']);
-Route::post('/auth/logout',[AuthController::class,'logout']);
-
-Route::post('/user', [AuthController::class, 'create']);
-Route::put('/user', [UserController::class,'update']);
-Route::delete('/user/{id?}',[UserController::class,'delete']);
-
 Route::post('/device',[DeviceController::class,'create']);
 Route::put('/device/{id?}',[DeviceController::class,'update']);
 Route::delete('/device/{id?}',[DeviceController::class,'delete']);
 Route::get('/device',[DeviceController::class,'list']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

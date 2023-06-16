@@ -4,24 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class DeviceController extends Controller
 {
-
-    private $loggedUser;
 
     /* HTTP Response Code*/
     public $code = 200;
     //
     public function __construct(){
-        $this->middleware('auth:api',[
-            'except' =>[
-                'list',
-            ]
-        ]);
-
-        $this->loggedUser = auth()->user();
     }
     public function create(Request $request)
     {
@@ -32,7 +22,7 @@ class DeviceController extends Controller
         $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $array['error'][] = 'input [name] not expecified.';
         $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $array['error'][] = 'input [description] not expecified.';
         $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $array['error'][] = 'input [voltage] not expecified.';
-        $device['id_user'] = $this->loggedUser['id'];
+        $device['id_user'] = 1;
 
         if(!isset($array['error']) || count($array['error']) == 0 )
         {
@@ -62,10 +52,12 @@ class DeviceController extends Controller
                 $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $device->description;
                 $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $device->voltage;
                 $device->updated_at = date('Y-m-d H:m:s');
-                $device->save();
-                $array['error'][] = '';
-                $array['msg'] = 'Eletrodoméstico atualizado com sucesso.';
-                $this->code = 200;
+                if($device->save())
+                {
+                    $array['error'][] = '';
+                    $array['msg'] = 'Eletrodoméstico atualizado com sucesso.';
+                    $this->code = 200;
+                }
 
             }
             else

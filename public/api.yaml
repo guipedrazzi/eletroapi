@@ -8,208 +8,6 @@ servers:
 - url: http://127.0.0.1:8000/api
   variables: {}
 paths:
-  /auth/logout:
-    post:
-      tags:
-      - Auth
-      summary: Auth Logout
-      description: ''
-      operationId: AuthLogout
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security:
-      - bearer: []
-    parameters: []
-  /unauthorized:
-    get:
-      tags:
-      - Auth
-      summary: Unauthorized
-      description: ''
-      operationId: Unauthorized
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security: []
-    parameters: []
-  /auth/login:
-    post:
-      tags:
-      - Auth
-      summary: Auth Login
-      description: ''
-      operationId: AuthLogin
-      parameters:
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          const: application/x-www-form-urlencoded
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding: {}
-            schema:
-              required:
-              - email
-              - password
-              type: object
-              properties:
-                email:
-                  type: string
-                  examples:
-                  - teste1@teste.com
-                password:
-                  type: string
-                  examples:
-                  - '1234'
-              contentMediaType: application/x-www-form-urlencoded
-        required: false
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security: []
-    parameters: []
-  /user/:
-    delete:
-      tags:
-      - User
-      summary: User Delete
-      description: ''
-      operationId: UserDelete
-      parameters:
-      - name: id
-        in: query
-        description: ''
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          contentEncoding: int32
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security:
-      - bearer: []
-      servers:
-      - url: http://127.0.0.1:8000/api
-        variables: {}
-    parameters: []
-  /user:
-    post:
-      tags:
-      - User
-      summary: User Create
-      description: ''
-      operationId: UserCreate
-      parameters:
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          const: application/x-www-form-urlencoded
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding: {}
-            schema:
-              required:
-              - name
-              - email
-              - password
-              - password_confirm
-              type: object
-              properties:
-                name:
-                  type: string
-                  examples:
-                  - Gui
-                email:
-                  type: string
-                  examples:
-                  - gui@gui.com
-                password:
-                  type: string
-                  examples:
-                  - '123'
-                password_confirm:
-                  type: string
-                  examples:
-                  - '123'
-              contentMediaType: application/x-www-form-urlencoded
-        required: false
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security: []
-    put:
-      tags:
-      - User
-      summary: User Update
-      description: ''
-      operationId: UserUpdate
-      parameters:
-      - name: id
-        in: query
-        description: ''
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          contentEncoding: int32
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            text/plain:
-              schema:
-                contentMediaType: text/plain
-      deprecated: false
-      security:
-      - bearer: []
-    parameters: []
   /device:
     put:
       tags:
@@ -227,13 +25,6 @@ paths:
         schema:
           type: integer
           contentEncoding: int32
-      - name: Content-Type
-        in: header
-        description: ''
-        style: simple
-        schema:
-          type: string
-          default: application/x-www-form-urlencoded
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -265,8 +56,6 @@ paths:
               schema:
                 contentMediaType: text/plain
       deprecated: false
-      security:
-      - bearer: []
     get:
       tags:
       - Device
@@ -309,23 +98,13 @@ paths:
               schema:
                 contentMediaType: text/plain
       deprecated: false
-      security:
-      - bearer: []
     post:
       tags:
       - Device
       summary: Device Create
       description: ''
       operationId: DeviceCreate
-      parameters:
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          const: application/x-www-form-urlencoded
-          type: string
+      parameters: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -363,20 +142,6 @@ paths:
               schema:
                 contentMediaType: text/plain
       deprecated: false
-      security:
-      - bearer: []
     parameters: []
 components:
   schemas: {}
-  securitySchemes:
-    bearer:
-      type: http
-      scheme: bearer
-security: []
-tags:
-- name: Auth
-  description: ''
-- name: User
-  description: ''
-- name: Device
-  description: ''
