@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class DeviceController extends Controller
 {
 
+
     /* HTTP Response Code*/
     public $code = 200;
+    public $brands = array('Eletrolux', 'Brastemp', 'Fischer', 'Samsung', 'LG');
     //
     public function __construct(){
     }
@@ -18,7 +20,14 @@ class DeviceController extends Controller
         $errors = [];
 
         $device = new Device();
-        $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $errors['brand'] = 'campo marca não pode ser nulo';
+
+        if (in_array($request['brand'], $this->brands)) {
+            $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $errors['brand'] = 'campo marca não pode ser nulo';
+        }
+        else{
+            $errors['brand'] = 'marca inexistente';
+        }
+
         $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $errors['name'] = 'campo nome não pode ser nulo';
         $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $errors['description'] = 'campo descrição não pode ser nulo';
         $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $errors['voltage'] = 'campo voltagem não pode ser nulo';
@@ -46,7 +55,15 @@ class DeviceController extends Controller
         if ($request->id) {
             $device = Device::find($request->id);
             if ($device && is_numeric($request->id)) {
-                $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $device->brand;
+                // $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $device->brand;
+                if (isset($request['brand']) && !empty($request['brand']) && in_array($request['brand'], $this->brands)) {
+                    $device->brand = $request['brand'];
+                }
+                else{
+
+                    $array['error'][] = 'Marca inválida';
+                }
+
                 $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $device->name;
                 $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $device->description;
                 $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $device->voltage;
