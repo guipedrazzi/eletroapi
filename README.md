@@ -1,4 +1,4 @@
-# EletroAPI
+# EletroAPI (BackEnd)
 
 EletroAPI é uma API desenvolvida exclusivamente para o [Teste de Desenvolvedor FullStack (PHP) do Grupo Plan](https://drive.google.com/file/d/1xY6EfiSDgJjQhrFCwiHQfL1fxTKg6S7i/view), em Laravel 10, que permite o cadastro de eletrodomésticos.
 
