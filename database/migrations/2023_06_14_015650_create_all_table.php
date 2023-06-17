@@ -14,9 +14,8 @@ return new class extends Migration
 
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users');
-            $table->string("brand",20);
-            $table->string('name',100);
+            $table->string("brand",200);
+            $table->string('name',200);
             $table->text('description');
             $table->string('voltage');
             $table->dateTime('created_at');

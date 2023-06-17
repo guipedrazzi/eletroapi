@@ -19,10 +19,9 @@ class DeviceFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_user' => '1',
-            'brand' => fake()->name('5'),
-            'name' => fake()->sentence('10'),
-            'description' =>fake()->text('60'),
+            'brand' => fake()->company(),
+            'name' => fake()->name(),
+            'description' =>fake()->text(60),
             'voltage' => rand(1,2) === 1 ? '110' : '220',
         ];
     }

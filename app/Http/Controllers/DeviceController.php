@@ -15,67 +15,58 @@ class DeviceController extends Controller
     }
     public function create(Request $request)
     {
-        $array = ['msg' => ''];
+        $errors = [];
 
         $device = new Device();
-        $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $array['error'][] = 'input [brand] not expecified';
-        $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $array['error'][] = 'input [name] not expecified.';
-        $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $array['error'][] = 'input [description] not expecified.';
-        $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $array['error'][] = 'input [voltage] not expecified.';
-        $device['id_user'] = 1;
+        $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $errors['brand'] = 'campo marca não pode ser nulo';
+        $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $errors['name'] = 'campo nome não pode ser nulo';
+        $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $errors['description'] = 'campo descrição não pode ser nulo';
+        $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $errors['voltage'] = 'campo voltagem não pode ser nulo';
 
-        if(!isset($array['error']) || count($array['error']) == 0 )
-        {
+        if (empty($errors)) {
             $device->save();
+            $response = [
+                'msg' => 'Eletrodoméstico adicionado com sucesso.'
+            ];
             $this->code = 200;
-            $array['msg'] = 'Eletrodoméstico adicionado com sucesso.';
-        }
-        else{
-
+        } else {
+            $response = [
+                'errors' => $errors
+            ];
             $this->code = 405;
         }
 
-        return response()->json($array,$this->code);
+        return response()->json($response, $this->code);
     }
 
     public function update(Request $request)
     {
         $array = ['msg' => ''];
 
-        if($request->id)
-        {
+        if ($request->id) {
             $device = Device::find($request->id);
-            if($device && is_numeric($request->id))
-            {
+            if ($device && is_numeric($request->id)) {
                 $device->brand = isset($request['brand']) && !empty($request['brand']) ? $request['brand'] : $device->brand;
                 $device->name = isset($request['name']) && !empty($request['name']) ? $request['name'] : $device->name;
                 $device->description = isset($request['description']) && !empty($request['description']) ? $request['description'] : $device->description;
                 $device->voltage = isset($request['voltage']) && !empty($request['voltage']) ? $request['voltage'] : $device->voltage;
-                $device->updated_at = date('Y-m-d H:m:s');
-                if($device->save())
-                {
-                    $array['error'][] = '';
+                $device->updated_at = date('Y-m-d H:i:s');
+
+                if ($device->save()) {
+                    $array['error'] = [];
                     $array['msg'] = 'Eletrodoméstico atualizado com sucesso.';
                     $this->code = 200;
                 }
-
-            }
-            else
-            {
+            } else {
                 $array['error'][] = 'ID de eletrodoméstico inválido ou inexistente.';
                 $this->code = 404;
-
             }
-
-        }
-        else
-        {
-            $array['error'][] = 'Nenhum ID passada para editar o eletrodoméstico.';
+        } else {
+            $array['error'][] = 'Nenhum ID passado para editar o eletrodoméstico.';
             $this->code = 404;
         }
 
-
-        return response()->json($array,$this->code);
+        return response()->json($array, $this->code);
     }
 
     public function delete(Request $request)
