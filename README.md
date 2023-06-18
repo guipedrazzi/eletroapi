@@ -54,13 +54,27 @@ Siga as etapas abaixo para instalar e configurar o projeto EletroAPI:
 A seguir estão os endpoints disponíveis na API EletroAPI:
 
 ### Devices
+    
+ **POST** `/api/device`
+Cria um novo eletrodoméstico.
 
-- **POST** `/api/device` - Cria um novo eletrodoméstico.
-- **PUT** `/api/device/{id}` - Atualiza os dados de um eletrodoméstico.
-- **POST** `/api/device/{id}` - Remove um eletrodoméstico.
-- **GET** `/api/device` - Lista todos os eletrodomésticos.
+- Campos obrigatórios: brand (string), name (string), description (string), voltage (string)
+- Retorno: errors (array), status (integer), msg (string)
 
+ **PUT** `/api/device/{id}`
+Atualiza os dados de um eletrodoméstico.
 
-## Conclusão
+- Campos obrigatórios: id (integer), brand (string), name (string), description (string), voltage (string)
+- Retorno: errors (array), status (integer), msg (string)
 
----
+ **DELETE** `/api/device/{id}`
+Remove um eletrodoméstico.
+
+- Campos obrigatórios: id (integer)
+- Retorno: errors (array), status (integer), msg (string)
+
+ **GET** `/api/device`
+Lista todos os eletrodomésticos.
+
+- Retorno: errors (array), status (integer), devices (array)
+
