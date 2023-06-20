@@ -1,6 +1,6 @@
 # EletroAPI (Back-end)
 
-EletroAPI é uma API desenvolvida exclusivamente para o [Teste de Desenvolvedor FullStack (PHP) do Grupo Plan](https://drive.google.com/file/d/1xY6EfiSDgJjQhrFCwiHQfL1fxTKg6S7i/view). 
+EletroAPI é uma API para estudos com esta arquitetura.
 A API é projetada para fornecer endpoints que permitem a criação, leitura, atualização e exclusão de registros de eletrodomésticos no banco de dados.
 
 ## Instalação
